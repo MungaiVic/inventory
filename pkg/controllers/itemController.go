@@ -17,12 +17,6 @@ func GetItem(context *fiber.Ctx, db *gorm.DB) error {
 	itemModel := &models.Item{}
 	itemID := context.Params("id")
 
-	if itemID == "" {
-		context.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-			"message": "id cannot be empty",
-		})
-		return nil
-	}
 	if err := db.Where("id = ?", itemID).First(itemModel).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
 			context.Status(fiber.StatusNotFound).JSON(&fiber.Map{
