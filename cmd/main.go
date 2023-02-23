@@ -16,11 +16,12 @@ import (
 var db *gorm.DB
 
 func setupRoutes(app *fiber.App, db *gorm.DB) {
-    routes.SetupItemRoutes(app, db)
+	api := app.Group("/api")
+	v1 := api.Group("/v1").(*fiber.Group)
+	routes.SetupItemRoutes(v1, db)
 }
 
-
-func initDatabase() *gorm.DB{
+func initDatabase() *gorm.DB {
 	// load in connection configuration for DB
 	configuration := &config.Config{
 		Host:     os.Getenv("DB_HOST"),
@@ -59,5 +60,5 @@ func main() {
 	db = initDatabase()
 	setupRoutes(app, db)
 	app.Listen(":5000")
-	
+
 }

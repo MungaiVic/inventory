@@ -7,12 +7,10 @@ import (
 	"github.com/MungaiVic/inventory/pkg/controllers"
 )
 
-func SetupItemRoutes(app *fiber.App, db *gorm.DB) {
-	itemRoutes := app.Group("/api/v1")
+func SetupItemRoutes(group *fiber.Group, db *gorm.DB) {
+	itemRoutes := group.Group("/items")
 
-	// item := models.Item{}
-
-	itemRoutes.Get("/items/", func(context *fiber.Ctx) error {
+	itemRoutes.Get("/", func(context *fiber.Ctx) error {
 		return controllers.GetItems(context, db)
 	})
 
@@ -20,7 +18,7 @@ func SetupItemRoutes(app *fiber.App, db *gorm.DB) {
 		return controllers.GetItem(context, db)
 	})
 
-	itemRoutes.Post("/items/", func(context *fiber.Ctx) error {
+	itemRoutes.Post("/create_item/", func(context *fiber.Ctx) error {
 		return controllers.CreateItem(context, db)
 	})
 }

@@ -24,4 +24,3 @@ func NewConnection(config *Config) (*gorm.DB, error) {
 	}
 	return db, nil
 }
-
