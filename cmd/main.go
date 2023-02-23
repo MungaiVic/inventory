@@ -9,6 +9,8 @@ import (
 	"github.com/MungaiVic/inventory/pkg/models"
 	"github.com/MungaiVic/inventory/pkg/routes"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/joho/godotenv"
 	"gorm.io/gorm"
 )
@@ -16,6 +18,12 @@ import (
 var db *gorm.DB
 
 func setupRoutes(app *fiber.App, db *gorm.DB) {
+	app.Use(requestid.New())
+	app.Use(logger.New(logger.Config{
+		Format:   "[${time}] ${status} - ${method} ${path}\n",
+		TimeZone: "Africa/Nairobi",
+		TimeFormat: "2006-01-02 15:04:05",
+	}))
 	api := app.Group("/api")
 	v1 := api.Group("/v1").(*fiber.Group)
 	routes.SetupItemRoutes(v1, db)
@@ -59,6 +67,6 @@ func main() {
 	app := fiber.New()
 	db = initDatabase()
 	setupRoutes(app, db)
-	app.Listen(":5000")
+	log.Fatal(app.Listen(":5000"))
 
 }
