@@ -20,8 +20,8 @@ var db *gorm.DB
 func setupRoutes(app *fiber.App, db *gorm.DB) {
 	app.Use(requestid.New())
 	app.Use(logger.New(logger.Config{
-		Format:   "[${time}] ${status} - ${method} ${path}\n",
-		TimeZone: "Africa/Nairobi",
+		Format:     "[${time}] ${status} - ${method} ${path}\n",
+		TimeZone:   "Africa/Nairobi",
 		TimeFormat: "2006-01-02 15:04:05",
 	}))
 	api := app.Group("/api")

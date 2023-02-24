@@ -8,10 +8,10 @@ import (
 
 type Item struct {
 	gorm.Model
-	Name       string `gorm:"not null" json:"name"`
-	Price      string `json:"price"`
-	Quantity   string `json:"quantity"`
-	Reorderlvl string `json:"reorderlvl"`
+	Name       string `gorm:"not null" json:"name" validate:"required,min=3"`
+	Price      string `json:"price" validate:"required"`
+	Quantity   string `json:"quantity" validate:"required"`
+	Reorderlvl string `json:"reorderlvl" validate:"required"`
 }
 
 func MigrateItems(db *gorm.DB) error {

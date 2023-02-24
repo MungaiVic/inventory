@@ -4,6 +4,8 @@ import (
 	"github.com/MungaiVic/inventory/pkg/models"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
+
+	"github.com/go-playground/validator/v10"
 )
 
 func GetItems(c *fiber.Ctx, db *gorm.DB) error {
@@ -39,6 +41,7 @@ func GetItem(context *fiber.Ctx, db *gorm.DB) error {
 
 func CreateItem(context *fiber.Ctx, db *gorm.DB) error {
 	itemModel := &models.Item{}
+	validate := validator.New()
 	err := context.BodyParser(itemModel)
 	if err != nil {
 		context.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
@@ -46,6 +49,11 @@ func CreateItem(context *fiber.Ctx, db *gorm.DB) error {
 		})
 		return err
 	}
+	// Running validations
+	if err := validate.Struct(itemModel); err != nil {
+		return context.Status(fiber.StatusBadRequest).JSON(err.Error())
+	}
+
 	err = db.Create(&itemModel).Error
 	if err != nil {
 		context.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
@@ -58,4 +66,21 @@ func CreateItem(context *fiber.Ctx, db *gorm.DB) error {
 		"data":    itemModel,
 	})
 	return nil
+}
+
+func DeleteItem(context *fiber.Ctx, db *gorm.DB) error {
+	itemID := context.Params("id")
+	var itemModel models.Item
+	// get the item
+	db.First(&itemModel, itemID)
+	if itemModel.Name == "" {
+		return context.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "No item found with supplied ID.",
+		})
+	}
+	db.Delete(&itemModel)
+	return context.Status(fiber.StatusAccepted).JSON(fiber.Map{
+		"message": "Item deleted successfully.",
+		"data":    itemModel,
+	})
 }

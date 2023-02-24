@@ -21,4 +21,8 @@ func SetupItemRoutes(group *fiber.Group, db *gorm.DB) {
 	itemRoutes.Post("/create_item/", func(context *fiber.Ctx) error {
 		return controllers.CreateItem(context, db)
 	})
+
+	itemRoutes.Delete("/delete_item/:id", func(context *fiber.Ctx) error {
+		return controllers.DeleteItem(context, db)
+	})
 }
