@@ -33,7 +33,7 @@ func GetItem(context *fiber.Ctx, db *gorm.DB) error {
 	}
 
 	context.Status(fiber.StatusOK).JSON(&fiber.Map{
-		"message": "Book id fetched successfully",
+		"message": "Item fetched successfully",
 		"data":    itemModel,
 	})
 	return nil
