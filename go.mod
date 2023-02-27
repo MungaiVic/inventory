@@ -4,7 +4,6 @@ go 1.20
 
 require (
 	github.com/go-playground/validator/v10 v10.11.2
-	github.com/shopspring/decimal v1.3.1
 	gorm.io/driver/postgres v1.4.7
 	gorm.io/gorm v1.24.5
 )
