@@ -22,6 +22,10 @@ func SetupItemRoutes(group *fiber.Group, db *gorm.DB) {
 		return controllers.CreateItem(context, db)
 	})
 
+	itemRoutes.Patch("/update_item/", func(context *fiber.Ctx) error {
+		return controllers.UpdateItem(context, db)
+	})
+
 	itemRoutes.Delete("/delete_item/:id", func(context *fiber.Ctx) error {
 		return controllers.DeleteItem(context, db)
 	})

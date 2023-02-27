@@ -49,6 +49,7 @@ func initDatabase() *gorm.DB {
 	// Migrate models
 	err = models.MigrateItems(db)
 	if err != nil {
+		fmt.Println(err)
 		log.Fatal("Could not migrate db")
 	}
 	fmt.Println("DB migrated!")

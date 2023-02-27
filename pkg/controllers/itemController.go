@@ -68,6 +68,34 @@ func CreateItem(context *fiber.Ctx, db *gorm.DB) error {
 	return nil
 }
 
+func UpdateItem(context *fiber.Ctx, db *gorm.DB) error {
+	var itemObj models.Item
+	var item models.Item
+	validate := validator.New()
+	err := context.BodyParser(&itemObj)
+	if err != nil {
+		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "malformed request",
+			"data":    err,
+		})
+	}
+	// Running validations
+	if err := validate.Struct(itemObj); err != nil {
+		return context.Status(fiber.StatusBadRequest).JSON(err.Error())
+	}
+	db.First(&item, itemObj.ID)
+	item.Name = itemObj.Name
+	item.Price = itemObj.Price
+	item.Quantity = itemObj.Quantity
+	item.Reorderlvl = itemObj.Reorderlvl
+	db.Save(&item)
+
+	return context.Status(fiber.StatusAccepted).JSON(fiber.Map{
+		"message": "Update Successful",
+		"data":    item,
+	})
+}
+
 func DeleteItem(context *fiber.Ctx, db *gorm.DB) error {
 	itemID := context.Params("id")
 	var itemModel models.Item
