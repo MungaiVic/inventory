@@ -12,6 +12,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/joho/godotenv"
+	"github.com/mgutz/ansi"
 	"gorm.io/gorm"
 )
 
@@ -49,8 +50,17 @@ func initDatabase() *gorm.DB {
 	// Migrate models
 	err = models.MigrateItems(db)
 	if err != nil {
-		fmt.Println(err)
-		log.Fatal("Could not migrate db")
+		redify := ansi.ColorFunc("red")
+		msg := redify(fmt.Sprintf("%s", err))
+		fmt.Println(msg)
+		log.Fatal("Could not migrate db on Items")
+	}
+	err = models.MigrateUsers(db)
+	if err != nil {
+		redify := ansi.ColorFunc("red")
+		msg := redify(fmt.Sprintf("%s", err))
+		fmt.Println(msg)
+		log.Fatal("Could not migrate db on Users")
 	}
 	fmt.Println("DB migrated!")
 	return db

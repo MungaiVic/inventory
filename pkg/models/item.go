@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 
+	"github.com/mgutz/ansi"
 	"gorm.io/gorm"
 )
 
@@ -15,10 +16,14 @@ type Item struct {
 }
 
 func MigrateItems(db *gorm.DB) error {
-	fmt.Println("Migrating Item model...")
+	orangefy := ansi.ColorFunc("yellow")
+	msg := orangefy("Migrating Item model...")
+	fmt.Println(msg)
 	err := db.AutoMigrate(&Item{})
 	if err == nil {
-		fmt.Println("Item model successfully migrated!")
+		greenify := ansi.ColorFunc("green+b")
+		msg := greenify("Item model successfully migrated!")
+		fmt.Println(msg)
 	}
 	return err
 }
