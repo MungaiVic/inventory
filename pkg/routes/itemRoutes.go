@@ -14,7 +14,7 @@ func SetupItemRoutes(group *fiber.Group, db *gorm.DB) {
 		return controllers.GetItems(context, db)
 	})
 
-	itemRoutes.Get("/getItem/:id", func(context *fiber.Ctx) error {
+	itemRoutes.Get("/get_item/:id", func(context *fiber.Ctx) error {
 		return controllers.GetItem(context, db)
 	})
 

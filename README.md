@@ -13,7 +13,7 @@
 
 - The API is structured as follows:
   - `GET /api/v1/items/` - Get all inventory
-  - `GET /api/v1/items/GetItem/{id}` - Get inventory by id
+  - `GET /api/v1/items/get_item/{id}` - Get inventory by id
   - `POST /api/v1/items/create_item/` - Create new inventory
   - `PATCH /api/v1/items/update_item/{id}` - Update inventory by id
   - `DELETE /api/v1/items/delete_item/{id}` - Delete inventory by id
@@ -51,4 +51,3 @@
 ```
 
 - `DELETE /api/v1/items/delete_item/{id}`
-- `GET /api/v1/items/GetItem/{id}`
