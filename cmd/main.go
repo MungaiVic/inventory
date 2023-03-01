@@ -31,7 +31,7 @@ func setupRoutes(app *fiber.App, db *gorm.DB) {
 	routes.SetupUserRoutes(v1, db)
 }
 
-func initDatabase() *gorm.DB {
+func initDatabase(shouldMigrate bool) *gorm.DB {
 	// load in connection configuration for DB
 	configuration := &config.Config{
 		Host:     os.Getenv("DB_HOST"),
@@ -48,22 +48,25 @@ func initDatabase() *gorm.DB {
 	if err != nil {
 		log.Fatal("Could not load the database")
 	}
-	// Migrate models
-	err = models.MigrateItems(db)
-	if err != nil {
-		redify := ansi.ColorFunc("red")
-		msg := redify(fmt.Sprintf("%s", err))
-		fmt.Println(msg)
-		log.Fatal("Could not migrate db on Items")
+	if shouldMigrate {
+		err = models.MigrateItems(db)
+		if err != nil {
+			redify := ansi.ColorFunc("red")
+			msg := redify(fmt.Sprintf("%s", err))
+			fmt.Println(msg)
+			log.Fatal("Could not migrate db on Items")
+		}
+		err = models.MigrateUsers(db)
+		if err != nil {
+			redify := ansi.ColorFunc("red")
+			msg := redify(fmt.Sprintf("%s", err))
+			fmt.Println(msg)
+			log.Fatal("Could not migrate db on Users")
+		}
+		fmt.Println("DB migrated!")
+		return db
 	}
-	err = models.MigrateUsers(db)
-	if err != nil {
-		redify := ansi.ColorFunc("red")
-		msg := redify(fmt.Sprintf("%s", err))
-		fmt.Println(msg)
-		log.Fatal("Could not migrate db on Users")
-	}
-	fmt.Println("DB migrated!")
+	fmt.Println("Database Connected!")
 	return db
 
 }
@@ -77,7 +80,14 @@ func main() {
 
 	// Initialize app and routes
 	app := fiber.New()
-	db = initDatabase()
+	// Read commandline arguments to check if migration should happen
+	if len(os.Args) > 1 {
+		migrate := os.Args[1:]
+		if migrate[0] == "migrate" {
+			db = initDatabase(true)
+		}
+	}
+	db = initDatabase(false)
 	setupRoutes(app, db)
 	log.Fatal(app.Listen(":5000"))
 
