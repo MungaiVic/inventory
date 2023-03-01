@@ -24,6 +24,11 @@
 - Run `go mod tidy` to install dependencies
 - cd into the project directory `cd cmd`
 - Run `go run main.go` to start the server
+- The server will run on `localhost:5000`
+
+<!-- Highlight block -->
+
+> To migrate the database, run `go run main.go migrate`
 
 ## Sample request
 
@@ -31,10 +36,10 @@
 
 ```json
 {
-  "name": "test",
-  "reorderlvl": 1,
-  "quantity": 1,
-  "price": 1
+ "name": "test",
+ "reorderlvl": 1,
+ "quantity": 1,
+ "price": 1
 }
 ```
 
@@ -42,11 +47,11 @@
 
 ```json
 {
-  "ID": 1,
-  "name": "test",
-  "reorderlvl": 1,
-  "quantity": 1,
-  "price": 1
+ "ID": 1,
+ "name": "test",
+ "reorderlvl": 1,
+ "quantity": 1,
+ "price": 1
 }
 ```
 
