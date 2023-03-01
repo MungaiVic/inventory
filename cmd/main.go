@@ -28,6 +28,7 @@ func setupRoutes(app *fiber.App, db *gorm.DB) {
 	api := app.Group("/api")
 	v1 := api.Group("/v1").(*fiber.Group)
 	routes.SetupItemRoutes(v1, db)
+	routes.SetupUserRoutes(v1, db)
 }
 
 func initDatabase() *gorm.DB {
