@@ -1,13 +1,9 @@
 package controllers
 
 import (
-	"fmt"
-
 	"github.com/MungaiVic/inventory/pkg/models"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
-
-	"github.com/go-playground/validator/v10"
 )
 
 func GetItems(c *fiber.Ctx, db *gorm.DB) error {
@@ -54,7 +50,7 @@ func CreateItem(c *fiber.Ctx, db *gorm.DB) error {
 	if err := ValidateItem(*itemModel); len(err) > 0 {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "Malformed request body",
-			"errors" : err,
+			"errors":  err,
 		})
 	}
 
@@ -72,20 +68,22 @@ func CreateItem(c *fiber.Ctx, db *gorm.DB) error {
 	return nil
 }
 
-func UpdateItem(context *fiber.Ctx, db *gorm.DB) error {
+func UpdateItem(c *fiber.Ctx, db *gorm.DB) error {
 	var itemObj models.Item
 	var item models.Item
-	validate := validator.New()
-	err := context.BodyParser(&itemObj)
+	err := c.BodyParser(&itemObj)
 	if err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "malformed request",
 			"data":    err,
 		})
 	}
 	// Running validations
-	if err := validate.Struct(itemObj); err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(err.Error())
+	if err := ValidateItem(itemObj); len(err) > 0 {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Malformed request body",
+			"errors":  err,
+		})
 	}
 	db.First(&item, itemObj.ID)
 	item.Name = itemObj.Name
@@ -94,7 +92,7 @@ func UpdateItem(context *fiber.Ctx, db *gorm.DB) error {
 	item.Reorderlvl = itemObj.Reorderlvl
 	db.Save(&item)
 
-	return context.Status(fiber.StatusAccepted).JSON(fiber.Map{
+	return c.Status(fiber.StatusAccepted).JSON(fiber.Map{
 		"message": "Update Successful",
 		"data":    item,
 	})
