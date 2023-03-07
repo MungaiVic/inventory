@@ -43,7 +43,6 @@ func GetItem(context *fiber.Ctx, db *gorm.DB) error {
 
 func CreateItem(c *fiber.Ctx, db *gorm.DB) error {
 	itemModel := &models.Item{}
-	// validate := validator.New()
 	err := c.BodyParser(itemModel)
 	if err != nil {
 		c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
@@ -53,7 +52,6 @@ func CreateItem(c *fiber.Ctx, db *gorm.DB) error {
 	}
 	// Running validations
 	if err := ValidateItem(*itemModel); len(err) > 0 {
-		fmt.Println(ValidateItem(*itemModel) == nil)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "Malformed request body",
 			"errors" : err,
