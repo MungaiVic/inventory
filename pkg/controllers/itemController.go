@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/MungaiVic/inventory/pkg/models"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
@@ -39,29 +41,33 @@ func GetItem(context *fiber.Ctx, db *gorm.DB) error {
 	return nil
 }
 
-func CreateItem(context *fiber.Ctx, db *gorm.DB) error {
+func CreateItem(c *fiber.Ctx, db *gorm.DB) error {
 	itemModel := &models.Item{}
-	validate := validator.New()
-	err := context.BodyParser(itemModel)
+	// validate := validator.New()
+	err := c.BodyParser(itemModel)
 	if err != nil {
-		context.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+		c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
 			"message": "Request failed.",
 		})
 		return err
 	}
 	// Running validations
-	if err := validate.Struct(itemModel); err != nil {
-		return context.Status(fiber.StatusBadRequest).JSON(err.Error())
+	if err := ValidateItem(*itemModel); len(err) > 0 {
+		fmt.Println(ValidateItem(*itemModel) == nil)
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Malformed request body",
+			"errors" : err,
+		})
 	}
 
 	err = db.Create(&itemModel).Error
 	if err != nil {
-		context.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+		c.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
 			"message": "Could not create book",
 		})
 		return err
 	}
-	context.Status(fiber.StatusCreated).JSON(&fiber.Map{
+	c.Status(fiber.StatusCreated).JSON(&fiber.Map{
 		"message": "Created successfully",
 		"data":    itemModel,
 	})
