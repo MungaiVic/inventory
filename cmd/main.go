@@ -7,7 +7,9 @@ import (
 
 	"github.com/MungaiVic/inventory/pkg/config"
 	"github.com/MungaiVic/inventory/pkg/models"
+	"github.com/MungaiVic/inventory/pkg/repository"
 	"github.com/MungaiVic/inventory/pkg/routes"
+	"github.com/MungaiVic/inventory/pkg/svc"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
@@ -18,17 +20,18 @@ import (
 
 var db *gorm.DB
 
-func setupRoutes(app *fiber.App, db *gorm.DB) {
+func setupRoutes(app *fiber.App, service *svc.SVC) {
 	app.Use(requestid.New())
 	app.Use(logger.New(logger.Config{
 		Format:     "[${time}] ${status} - ${method} ${path}\n",
 		TimeZone:   "Africa/Nairobi",
 		TimeFormat: "2006-01-02 15:04:05",
 	}))
+
 	api := app.Group("/api")
 	v1 := api.Group("/v1").(*fiber.Group)
-	routes.SetupItemRoutes(v1, db)
-	routes.SetupUserRoutes(v1, db)
+	routes.SetupItemRoutes(v1, service)
+	// routes.SetupUserRoutes(v1, db)
 }
 
 func initDatabase(shouldMigrate bool) *gorm.DB {
@@ -88,7 +91,9 @@ func main() {
 		}
 	}
 	db = initDatabase(false)
-	setupRoutes(app, db)
+	dao := repository.New(db)
+	service := svc.New(dao)
+	setupRoutes(app, service.(*svc.SVC))
 	log.Fatal(app.Listen(":5000"))
 
 }

@@ -2,14 +2,19 @@ package controllers
 
 import (
 	"github.com/MungaiVic/inventory/pkg/models"
+	"github.com/MungaiVic/inventory/pkg/svc"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
 
-func GetItems(c *fiber.Ctx, db *gorm.DB) error {
-	var items []models.Item
 
-	db.Find(&items)
+
+func GetItems(c *fiber.Ctx, service *svc.SVC) error {
+	// var items []models.ItemResponse
+	items, err :=  service.GetAll()
+	if err != nil{
+		c.JSON(err)
+	}
 	return c.JSON(items)
 }
 
