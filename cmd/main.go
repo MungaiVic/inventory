@@ -2,93 +2,59 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
-
-	"github.com/MungaiVic/inventory/pkg/config"
-	"github.com/MungaiVic/inventory/pkg/models"
-	"github.com/MungaiVic/inventory/pkg/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/joho/godotenv"
-	"github.com/mgutz/ansi"
-	"gorm.io/gorm"
+	"inv-v2/internal/config"
+	"inv-v2/internal/handlers"
+	"inv-v2/internal/models"
+	"inv-v2/internal/repository"
+	"inv-v2/internal/service"
+	"log"
+	"os"
 )
 
-var db *gorm.DB
+func main() {
+	enverr := godotenv.Load(".env")
 
-func setupRoutes(app *fiber.App, db *gorm.DB) {
-	app.Use(requestid.New())
+	if enverr != nil {
+		log.Fatal(enverr)
+	}
+	app := fiber.New(fiber.Config{
+		Prefork: false,
+	})
 	app.Use(logger.New(logger.Config{
 		Format:     "[${time}] ${status} - ${method} ${path}\n",
 		TimeZone:   "Africa/Nairobi",
 		TimeFormat: "2006-01-02 15:04:05",
 	}))
-	api := app.Group("/api")
-	v1 := api.Group("/v1").(*fiber.Group)
-	routes.SetupItemRoutes(v1, db)
-	routes.SetupUserRoutes(v1, db)
-}
-
-func initDatabase(shouldMigrate bool) *gorm.DB {
-	// load in connection configuration for DB
-	configuration := &config.Config{
-		Host:     os.Getenv("DB_HOST"),
-		Port:     os.Getenv("DB_PORT"),
-		Password: os.Getenv("DB_PASS"),
-		User:     os.Getenv("DB_USER"),
-		SSLMode:  os.Getenv("DB_SSLMODE"),
-		DBName:   os.Getenv("DB_NAME"),
+	v1 := app.Group("/api/v1").(*fiber.Group)
+	// Set up the database
+	pgConfigs := config.PostgresConfig{
+		Host:     os.Getenv("PG_DB_HOST"),
+		Port:     os.Getenv("PG_DB_PORT"),
+		Password: os.Getenv("PG_DB_PASS"),
+		User:     os.Getenv("PG_DB_USER"),
+		DBName:   os.Getenv("PG_DB_NAME"),
+		SSLMode:  os.Getenv("PG_DB_SSLMODE"),
 	}
-
-	// Create new connection using configurations
-	db, err := config.NewConnection(configuration)
-
+	// Get new connection
+	dbConn, err := config.NewPostgresConnection(pgConfigs)
 	if err != nil {
-		log.Fatal("Could not load the database")
+		panic(err)
 	}
-	if shouldMigrate {
-		err = models.MigrateItems(db)
-		if err != nil {
-			redify := ansi.ColorFunc("red")
-			msg := redify(fmt.Sprintf("%s", err))
-			fmt.Println(msg)
-			log.Fatal("Could not migrate db on Items")
-		}
-		err = models.MigrateUsers(db)
-		if err != nil {
-			redify := ansi.ColorFunc("red")
-			msg := redify(fmt.Sprintf("%s", err))
-			fmt.Println(msg)
-			log.Fatal("Could not migrate db on Users")
-		}
-		fmt.Println("DB migrated!")
-		return db
-	}
-	fmt.Println("Database Connected!")
-	return db
-
-}
-
-func main() {
-	// Load env file
-	err := godotenv.Load(".env")
+	// Migrate the Item model
+	err = dbConn.AutoMigrate(&models.Item{})
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
+	fmt.Println("Database successfully migrated!")
+	dao := repository.NewItemConnection(dbConn)
+	itemSVC := service.NewItemService(dao)
 
-	// Initialize app and routes
-	app := fiber.New()
-	// Read commandline arguments to check if migration should happen
-	if len(os.Args) > 1 {
-		migrate := os.Args[1:]
-		if migrate[0] == "migrate" {
-			db = initDatabase(true)
-		}
-	}
-	db = initDatabase(false)
-	setupRoutes(app, db)
+	// Set up the routes
+	handlers.SetupItemRoutes(v1, itemSVC)
+	// Start the server
 	log.Fatal(app.Listen(":5000"))
 
 }

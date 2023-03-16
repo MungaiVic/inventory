@@ -1,13 +1,13 @@
-package controllers
+package service
 
 import (
-	"github.com/MungaiVic/inventory/pkg/models"
+	"inv-v2/internal/models"
 )
 
-func ValidateItem(item models.Item) map[string]string {
+func ValidateItem(item *models.Item) map[string]string {
 	itemErrors := make(map[string]string)
 	if item.Name == "" {
-		itemErrors["name"] = "Name must not be empty"
+		itemErrors["name"] = "name must not be empty"
 	} else if len(item.Name) < 3 {
 		itemErrors["name"] = "name must not be less than 3 characters"
 	}
@@ -23,7 +23,6 @@ func ValidateItem(item models.Item) map[string]string {
 	if item.Reorderlvl <= 0 {
 		itemErrors["reorderlvl"] = "reorderlvl cannot be a zero value or less"
 	}
-
 
 	return itemErrors
 }
