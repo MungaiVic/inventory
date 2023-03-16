@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/joho/godotenv"
 	"inv-v2/internal/config"
 	"inv-v2/internal/handlers"
 	"inv-v2/internal/models"
@@ -12,6 +9,10 @@ import (
 	"inv-v2/internal/service"
 	"log"
 	"os"
+
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -55,6 +56,6 @@ func main() {
 	// Set up the routes
 	handlers.SetupItemRoutes(v1, itemSVC)
 	// Start the server
-	log.Fatal(app.Listen(":5000"))
+	log.Fatal(app.Listen(fmt.Sprintf(":%v", os.Getenv("APP_PORT"))))
 
 }

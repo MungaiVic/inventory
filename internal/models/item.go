@@ -7,10 +7,10 @@ import (
 
 type Item struct {
 	gorm.Model
-	Name       string `gorm:"not null"`
-	Price      uint16
-	Quantity   uint16
-	Reorderlvl uint16
+	Name       string `gorm:"not null" json:"name,omitempty"`
+	Price      uint16 `json:"price,omitempty"`
+	Quantity   uint16 `json:"quantity,omitempty"`
+	Reorderlvl uint16 `json:"reorderlvl,omitempty"`
 }
 
 func MigrateItems(db gorm.DB) error {

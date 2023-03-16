@@ -33,7 +33,6 @@ func (item *ItemImpl) GetItem(c *fiber.Ctx) error {
 }
 
 func (item *ItemImpl) CreateItem(c *fiber.Ctx) error {
-	//TODO implement me
 	itemModel := &models.Item{}
 	err := c.BodyParser(itemModel)
 	if err != nil {

@@ -1,0 +1,16 @@
+[
+  {
+    "_id": "ae626a61-f28d-40eb-aa42-fbd8cb816c3c",
+    "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
+    "containerId": "",
+    "name": "Get all items",
+    "url": "http://localhost:6000/api/v1/items",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2023-03-16T19:21:30.819Z",
+    "modified": "2023-03-16T19:24:32.730Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  }
+]
