@@ -2,9 +2,10 @@ package service
 
 import (
 	"fmt"
-	"github.com/gofiber/fiber/v2"
 	"inv-v2/internal/models"
 	"inv-v2/internal/repository"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 type ItemImpl struct {
@@ -53,7 +54,6 @@ func (item *ItemImpl) CreateItem(c *fiber.Ctx) error {
 }
 
 func (item *ItemImpl) UpdateItem(c *fiber.Ctx) error {
-	//TODO implement me
 	itemModel := &models.Item{}
 	err := c.BodyParser(&itemModel)
 	if err != nil {

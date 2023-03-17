@@ -49,6 +49,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	// Migrate the User model
+	err = dbConn.AutoMigrate(&models.User{})
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println("Database successfully migrated!")
 	dao := repository.NewItemConnection(dbConn)
 	itemSVC := service.NewItemService(dao)
