@@ -20,3 +20,18 @@ type UserService interface {
 	// UpdateUser(c *fiber.Ctx) error
 	// DeleteUser(c *fiber.Ctx) error
 }
+
+type UserRegistration struct {
+	FirstName string  `json:"first_name,omitempty"`
+	LastName  string  `json:"last_name,omitempty"`
+	Email     *string `json:"email,omitempty"`
+	Username  string  `json:"username,omitempty"`
+	Password  string  `json:"password,omitempty"`
+}
+
+type UserResponse struct {
+	FirstName string  `json:"first_name,omitempty"`
+	LastName  string  `json:"last_name,omitempty"`
+	Email     *string `json:"email,omitempty"`
+	Username  string  `json:"username,omitempty"`
+}

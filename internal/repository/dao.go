@@ -12,4 +12,5 @@ type ItemRepository interface {
 
 type UserRepository interface {
 	GetAllUsers() ([]models.User, error)
+	CreateUser(user *models.User) (*models.User, error)
 }

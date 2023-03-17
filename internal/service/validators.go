@@ -26,3 +26,29 @@ func ValidateItem(item *models.Item) map[string]string {
 
 	return itemErrors
 }
+
+func ValidateRegisterUser(user *UserRegistration) map[string]string {
+	userErrors := make(map[string]string)
+
+	if user.Username == "" {
+		userErrors["username"] = "username must not be empty"
+	} else if len(user.Username) < 3 {
+		userErrors["username"] = "username must not be less than 3 characters"
+	}
+	if len(user.Password) < 6 {
+		userErrors["password "] = "password must not be less than 6 characters"
+	}
+	if len(user.FirstName) < 3 {
+		userErrors["first_name"] = "first_name must not be less than 3 characters"
+	}
+	if len(user.LastName) < 3 {
+		userErrors["last_name"] = "last_name must not be less than 3 characters"
+	}
+	if user.FirstName == "" {
+		userErrors["first_name"] = "first_name must not be empty"
+	}
+	if user.LastName == "" {
+		userErrors["last_name"] = "last_name must not be empty"
+	}
+	return userErrors
+}

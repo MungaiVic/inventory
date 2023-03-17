@@ -9,9 +9,12 @@ import (
 
 type User struct {
 	gorm.Model
-	UserID   uuid.UUID `json:"user_id" gorm:"type:uuid;default:uuid_generate_v4(); primaryKey; not null"`
-	Username string    `json:"username,omitempty"`
-	Password string    `json:"password,omitempty"`
+	UserID    uuid.UUID `json:"user_id,omitempty" gorm:"type:uuid;default:uuid_generate_v4(); primaryKey; not null"`
+	FirstName string    `json:"first_name,omitempty"`
+	LastName  string    `json:"last_name,omitempty"`
+	Email     *string   `json:"email,omitempty"`
+	Username  string    `json:"username,omitempty"`
+	Password  string    `json:"password,omitempty"`
 }
 
 func MigrateUsers(db gorm.DB) error {
