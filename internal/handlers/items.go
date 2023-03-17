@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"inv-v2/internal/service"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func SetupItemRoutes(group *fiber.Group, svc service.ItemService) {

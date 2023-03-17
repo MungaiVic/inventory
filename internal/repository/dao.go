@@ -9,3 +9,7 @@ type ItemRepository interface {
 	UpdateItem(item *models.Item) (*models.Item, error)
 	DeleteItem(id string) error
 }
+
+type UserRepository interface {
+	GetAllUsers() ([]models.User, error)
+}

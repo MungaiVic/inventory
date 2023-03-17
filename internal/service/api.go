@@ -13,9 +13,10 @@ type ItemService interface {
 }
 
 type UserService interface {
-	Login(c *fiber.Ctx) error
+	GetUsers(c *fiber.Ctx) error
+	// Login(c *fiber.Ctx) error
 	Register(c *fiber.Ctx) error
-	ChangePassword(c *fiber.Ctx) error
-	UpdateUser(c *fiber.Ctx) error
-	DeleteUser(c *fiber.Ctx) error
+	// ChangePassword(c *fiber.Ctx) error
+	// UpdateUser(c *fiber.Ctx) error
+	// DeleteUser(c *fiber.Ctx) error
 }

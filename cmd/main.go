@@ -55,11 +55,14 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("Database successfully migrated!")
-	dao := repository.NewItemConnection(dbConn)
-	itemSVC := service.NewItemService(dao)
+	itemDAO := repository.NewItemConnection(dbConn)
+	userDAO := repository.NewUserConnection(dbConn)
+	itemSVC := service.NewItemService(itemDAO)
+	userSVC := service.NewUserService(userDAO)
 
 	// Set up the routes
 	handlers.SetupItemRoutes(v1, itemSVC)
+	handlers.SetupUserRoutes(v1, userSVC)
 	// Start the server
 	log.Fatal(app.Listen(fmt.Sprintf(":%v", os.Getenv("APP_PORT"))))
 
