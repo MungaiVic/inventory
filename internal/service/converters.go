@@ -24,7 +24,7 @@ func ConvertUserRegToUserResponse(userReg models.User) UserResponse {
 	return userObj
 }
 
-func ConvertUserModelsToUserResponses(userModels []models.User) []UserResponse {
+func ConvertUserModelsToUserResponses(userModels []*models.User) []UserResponse {
 	var userResps []UserResponse
 
 	for _, user := range userModels {
@@ -37,4 +37,16 @@ func ConvertUserModelsToUserResponses(userModels []models.User) []UserResponse {
 		userResps = append(userResps, userResponse)
 	}
 	return userResps
+}
+
+func ConvertUserModelToUserResponse(userModels *models.User) UserResponse {
+
+	userResponse := UserResponse{
+		FirstName: userModels.FirstName,
+		LastName:  userModels.LastName,
+		Email:     userModels.Email,
+		Username:  userModels.Username,
+	}
+
+	return userResponse
 }

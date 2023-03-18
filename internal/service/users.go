@@ -19,11 +19,49 @@ func (user UserImpl) GetUsers(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(ConvertUserModelsToUserResponses(users))
 }
 
+func (user UserImpl) GetUser(c *fiber.Ctx) error {
+	emailParam := c.Query("email")
+	usernameParam := c.Query("username")
+	userID := c.Query("user_id")
+
+	switch {
+	case emailParam != "":
+		userObj, err := user.db.GetUserByEmail(emailParam)
+		if err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"message": "User not found",
+			})
+		}
+		return c.Status(fiber.StatusOK).JSON(ConvertUserModelToUserResponse(userObj))
+	case usernameParam != "":
+		userObj, err := user.db.GetUserByUsername(usernameParam)
+		if err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"message": "User not found",
+			})
+		}
+		return c.Status(fiber.StatusOK).JSON(ConvertUserModelToUserResponse(userObj))
+	case userID != "":
+		userObj, err := user.db.GetUserByID(userID)
+		if err != nil {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"message": "User not found",
+			})
+		}
+		return c.Status(fiber.StatusOK).JSON(ConvertUserModelToUserResponse(userObj))
+	default:
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Please supply email, username or user_id",
+		})
+	}
+
+}
+
 func (user UserImpl) Register(c *fiber.Ctx) error {
 	userReg := &UserRegistration{}
 	err := c.BodyParser(userReg)
 	if err != nil {
-		c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "invalid request",
 			"data":    err,
 		})
@@ -37,12 +75,12 @@ func (user UserImpl) Register(c *fiber.Ctx) error {
 	// TODO: Check if user exists
 	hashedP, err := HashPassword(userReg.Password)
 	if err != nil {
-		c.Status(fiber.StatusBadRequest).JSON(err)
+		return c.Status(fiber.StatusBadRequest).JSON(err)
 	}
 	userReg.Password = hashedP
 	userObj, err := user.db.CreateUser(ConvertUserRegToUserModel(*userReg))
 	if err != nil {
-		c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": err,
 		})
 	}

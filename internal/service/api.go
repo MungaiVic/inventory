@@ -14,11 +14,15 @@ type ItemService interface {
 
 type UserService interface {
 	GetUsers(c *fiber.Ctx) error
-	// Login(c *fiber.Ctx) error
+	GetUser(c *fiber.Ctx) error
 	Register(c *fiber.Ctx) error
 	// ChangePassword(c *fiber.Ctx) error
 	// UpdateUser(c *fiber.Ctx) error
 	// DeleteUser(c *fiber.Ctx) error
+}
+
+type AuthService interface {
+	Login(c *fiber.Ctx) error
 }
 
 type UserRegistration struct {

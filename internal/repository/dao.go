@@ -11,6 +11,9 @@ type ItemRepository interface {
 }
 
 type UserRepository interface {
-	GetAllUsers() ([]models.User, error)
+	GetAllUsers() ([]*models.User, error)
+	GetUserByID(userID string) (*models.User, error)
+	GetUserByEmail(email string) (*models.User, error)
+	GetUserByUsername(userName string) (*models.User, error)
 	CreateUser(user *models.User) (*models.User, error)
 }

@@ -13,6 +13,10 @@ func SetupUserRoutes(group *fiber.Group, svc service.UserService) {
 		return service.UserService.GetUsers(svc, ctx)
 	})
 
+	userRoutes.Get("/get_user", func(ctx *fiber.Ctx) error {
+		return service.UserService.GetUser(svc, ctx)
+	})
+
 	userRoutes.Post("/create_user", func(ctx *fiber.Ctx) error {
 		return service.UserService.Register(svc, ctx)
 	})
