@@ -1,1 +1,21 @@
-[]
+[
+  {
+    "_id": "29761adc-7715-464e-8f55-6120c1ad0864",
+    "name": "inventory",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-03-18T10:23:25.105Z",
+    "modified": "2023-03-18T10:23:25.105Z",
+    "data": [
+      {
+        "name": "API",
+        "value": "http://localhost"
+      },
+      {
+        "name": "port",
+        "value": "5000"
+      }
+    ],
+    "envFile": "../cmd/.env"
+  }
+]

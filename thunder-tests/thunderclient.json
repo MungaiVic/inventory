@@ -2,13 +2,59 @@
   {
     "_id": "ae626a61-f28d-40eb-aa42-fbd8cb816c3c",
     "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
-    "containerId": "",
+    "containerId": "d5574662-54ae-402c-a296-f25c92b41942",
     "name": "Get all items",
-    "url": "http://localhost:6000/api/v1/items",
+    "url": "{{API}}:{{port}}/api/v1/items",
     "method": "GET",
     "sortNum": 10000,
     "created": "2023-03-16T19:21:30.819Z",
-    "modified": "2023-03-16T19:24:32.730Z",
+    "modified": "2023-03-18T10:25:49.882Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "c887e88e-caed-417a-92e0-f1da6988dc6f",
+    "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
+    "containerId": "9768302a-1a48-46b0-894e-7ef9c598599f",
+    "name": "Get user",
+    "url": "{{API}}:{{port}}/api/v1/users/get_user?user_id=469ff703-669e-403d-94ec-9428e21c0d4a",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-03-18T10:20:41.685Z",
+    "modified": "2023-03-18T10:25:03.190Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "email",
+        "value": "ndogie@test.com",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "username",
+        "value": "ndoige",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "user_id",
+        "value": "469ff703-669e-403d-94ec-9428e21c0d4a",
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "8070b8a8-942c-4709-a9c3-78fdb3f6a8e4",
+    "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
+    "containerId": "9768302a-1a48-46b0-894e-7ef9c598599f",
+    "name": "Get users",
+    "url": "{{API}}:{{port}}/api/v1/users/",
+    "method": "GET",
+    "sortNum": 30000,
+    "created": "2023-03-18T10:21:17.953Z",
+    "modified": "2023-03-18T10:25:41.975Z",
     "headers": [],
     "params": [],
     "tests": []

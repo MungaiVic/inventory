@@ -4,6 +4,21 @@
     "colName": "Inventory",
     "created": "2023-03-16T19:21:04.205Z",
     "sortNum": 10000,
-    "folders": []
+    "folders": [
+      {
+        "_id": "9768302a-1a48-46b0-894e-7ef9c598599f",
+        "name": "users",
+        "containerId": "",
+        "created": "2023-03-18T10:20:31.227Z",
+        "sortNum": 10000
+      },
+      {
+        "_id": "d5574662-54ae-402c-a296-f25c92b41942",
+        "name": "items",
+        "containerId": "",
+        "created": "2023-03-18T10:23:08.676Z",
+        "sortNum": 20000
+      }
+    ]
   }
 ]
