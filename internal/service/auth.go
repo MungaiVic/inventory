@@ -1,6 +1,16 @@
 package service
 
-import "golang.org/x/crypto/bcrypt"
+import (
+	"inv-v2/internal/repository"
+	"strings"
+
+	"github.com/gofiber/fiber/v2"
+	"golang.org/x/crypto/bcrypt"
+)
+
+type LoginImpl struct {
+	db repository.UserRepository
+}
 
 // HashPassword generates a password hash for storage in the DB.
 func HashPassword(password string) (string, error) {
@@ -23,6 +33,53 @@ func ValidatePassword(hash, password string) bool {
 	return err == nil
 }
 
-func Login() {
+func NewAuthService(db repository.UserRepository) AuthService {
+	return &LoginImpl{db: db}
+}
+
+func (auth LoginImpl) Login(ctx *fiber.Ctx) error {
 	// login logic will come here
+	creds := &LoginCredentials{}
+	err := ctx.BodyParser(creds)
+	if creds.Identifier == "" || creds.Password == "" {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "identifier/password must not be empty",
+		})
+	}
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(err)
+	}
+	if strings.Contains(creds.Identifier, "@") {
+		user, err := auth.db.GetUserByEmail(creds.Identifier)
+		if err != nil {
+			return ctx.Status(fiber.StatusBadRequest).JSON(err)
+		}
+		hashedPassword := user.Password
+
+		if ValidatePassword(hashedPassword, creds.Password) {
+			return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+				"Message": "Authentication credentials look OK.",
+			})
+		} else {
+			return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
+				"message": "Credentials do not match.",
+			})
+		}
+	} else {
+		user, err := auth.db.GetUserByUsername(creds.Identifier)
+		if err != nil {
+			return ctx.Status(fiber.StatusBadRequest).JSON(err)
+		}
+		hashedPassword := user.Password
+
+		if ValidatePassword(hashedPassword, creds.Password) {
+			return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+				"Message": "Authentication credentials look OK.",
+			})
+		} else {
+			return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
+				"message": "Credentials do not match.",
+			})
+		}
+	}
 }

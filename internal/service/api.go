@@ -39,3 +39,8 @@ type UserResponse struct {
 	Email     *string `json:"email,omitempty"`
 	Username  string  `json:"username,omitempty"`
 }
+
+type LoginCredentials struct {
+	Identifier string `json:"identifier,omitempty"`
+	Password   string `json:"password,omitempty"`
+}

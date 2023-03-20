@@ -59,10 +59,12 @@ func main() {
 	userDAO := repository.NewUserConnection(dbConn)
 	itemSVC := service.NewItemService(itemDAO)
 	userSVC := service.NewUserService(userDAO)
+	authSVC := service.NewAuthService(userDAO)
 
 	// Set up the routes
 	handlers.SetupItemRoutes(v1, itemSVC)
 	handlers.SetupUserRoutes(v1, userSVC)
+	handlers.SetupAuthRoutes(v1, authSVC)
 	// Start the server
 	log.Fatal(app.Listen(fmt.Sprintf(":%v", os.Getenv("APP_PORT"))))
 
