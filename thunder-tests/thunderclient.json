@@ -58,5 +58,24 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "f649eecb-9276-40e3-ab15-d452189d328b",
+    "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
+    "containerId": "9768302a-1a48-46b0-894e-7ef9c598599f",
+    "name": "Register User",
+    "url": "{{API}}:{{port}}/api/v1/users/create_user",
+    "method": "POST",
+    "sortNum": 30000,
+    "created": "2023-03-18T19:30:24.006Z",
+    "modified": "2023-03-18T19:37:05.911Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": " {\n    \"first_name\": \"Kamanda\",\n    \"last_name\": \"Nogozi\",\n    \"username\": \"kamanda\",\n    \"password\": \"looter123\",\n    \"email\": \"testtest\"\n  }",
+      "form": []
+    },
+    "tests": []
   }
 ]

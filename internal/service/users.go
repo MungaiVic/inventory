@@ -73,6 +73,14 @@ func (user UserImpl) Register(c *fiber.Ctx) error {
 		})
 	}
 	// TODO: Check if user exists
+	userExists, err := user.db.GetUserByUsername(userReg.Username)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(err)
+	} else if userExists.Username != "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message":"User already exists",
+		})
+	}
 	hashedP, err := HashPassword(userReg.Password)
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)
