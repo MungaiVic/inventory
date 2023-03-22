@@ -3,8 +3,10 @@ package service
 import (
 	"inv-v2/internal/repository"
 	"strings"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -73,8 +75,18 @@ func (auth LoginImpl) Login(ctx *fiber.Ctx) error {
 		hashedPassword := user.Password
 
 		if ValidatePassword(hashedPassword, creds.Password) {
+			jwtToken := jwt.New(jwt.SigningMethodHS256)
+			claims := jwtToken.Claims.(jwt.MapClaims)
+			claims["identity"] = creds.Identifier
+			claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+
+			tok, err := jwtToken.SignedString([]byte("secret"))
+			if err != nil{
+				return ctx.SendStatus(fiber.StatusInternalServerError)
+			}
 			return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 				"Message": "Authentication credentials look OK.",
+				"jwtToken": tok,
 			})
 		} else {
 			return ctx.Status(fiber.StatusForbidden).JSON(fiber.Map{
