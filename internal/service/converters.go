@@ -50,3 +50,18 @@ func ConvertUserModelToUserResponse(userModels *models.User) UserResponse {
 
 	return userResponse
 }
+
+func ConvertItemModelToItemResponse(itemModels []models.Item) []ItemResponse {
+	var itemResps []ItemResponse
+
+	for _, item := range itemModels {
+		itemResponse := ItemResponse{
+			Name: item.Name,
+			Quantity: item.Quantity,
+			Price: item.Price,
+			Reorderlvl: item.Reorderlvl,
+		}
+		itemResps = append(itemResps, itemResponse)
+	}
+	return itemResps
+}

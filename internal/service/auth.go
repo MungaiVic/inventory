@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -78,7 +78,7 @@ func (auth LoginImpl) Login(ctx *fiber.Ctx) error {
 			jwtToken := jwt.New(jwt.SigningMethodHS256)
 			claims := jwtToken.Claims.(jwt.MapClaims)
 			claims["identity"] = creds.Identifier
-			claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+			claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 
 			tok, err := jwtToken.SignedString([]byte("secret"))
 			if err != nil{

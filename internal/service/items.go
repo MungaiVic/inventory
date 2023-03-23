@@ -18,7 +18,7 @@ func NewItemService(db repository.ItemRepository) ItemService {
 
 func (item *ItemImpl) GetItems(c *fiber.Ctx) error {
 	items, _ := item.db.GetAllItems()
-	return c.Status(fiber.StatusOK).JSON(items)
+	return c.Status(fiber.StatusOK).JSON( ConvertItemModelToItemResponse(items))
 }
 
 func (item *ItemImpl) GetItem(c *fiber.Ctx) error {

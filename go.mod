@@ -4,7 +4,6 @@ go 1.20
 
 require (
 	github.com/gofiber/fiber/v2 v2.42.0
-	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.5.1
 	golang.org/x/crypto v0.7.0
@@ -12,7 +11,7 @@ require (
 	gorm.io/gorm v1.24.7-0.20230306060331-85eaf9eeda11
 )
 
-require github.com/golang-jwt/jwt/v4 v4.0.0 // indirect
+require github.com/golang-jwt/jwt/v4 v4.0.0
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect

@@ -40,6 +40,13 @@ type UserResponse struct {
 	Username  string  `json:"username,omitempty"`
 }
 
+type ItemResponse struct {
+	Name       string `json:"name,omitempty"`
+	Price      uint16 `json:"price,omitempty"`
+	Quantity   uint16 `json:"quantity,omitempty"`
+	Reorderlvl uint16 `json:"reorderlvl,omitempty"`
+}
+
 type LoginCredentials struct {
 	Identifier string `json:"identifier,omitempty"`
 	Password   string `json:"password,omitempty"`
