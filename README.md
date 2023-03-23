@@ -7,7 +7,6 @@
 - These include:
   - gorm <https://gorm.io/>
   - fiber(V2) <https://docs.gofiber.io/>
-  - validate <https://pkg.go.dev/github.com/go-playground/validator>
 
 ## Usage
 
