@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"inv-v2/internal/middleware"
 	"inv-v2/internal/service"
 
 	"github.com/gofiber/fiber/v2"
@@ -9,15 +10,15 @@ import (
 func SetupUserRoutes(group *fiber.Group, svc service.UserService) {
 	userRoutes := group.Group("/users")
 
-	userRoutes.Get("/", func(ctx *fiber.Ctx) error {
+	userRoutes.Get("/", middleware.Protected(), func(ctx *fiber.Ctx) error {
 		return service.UserService.GetUsers(svc, ctx)
 	})
 
-	userRoutes.Get("/get_user", func(ctx *fiber.Ctx) error {
+	userRoutes.Get("/get_user", middleware.Protected(), func(ctx *fiber.Ctx) error {
 		return service.UserService.GetUser(svc, ctx)
 	})
 
-	userRoutes.Post("/create_user", func(ctx *fiber.Ctx) error {
+	userRoutes.Post("/create_user", middleware.Protected(), func(ctx *fiber.Ctx) error {
 		return service.UserService.Register(svc, ctx)
 	})
 }

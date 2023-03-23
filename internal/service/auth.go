@@ -77,10 +77,10 @@ func (auth LoginImpl) Login(ctx *fiber.Ctx) error {
 		if ValidatePassword(hashedPassword, creds.Password) {
 			jwtToken := jwt.New(jwt.SigningMethodHS256)
 			claims := jwtToken.Claims.(jwt.MapClaims)
-			claims["identity"] = creds.Identifier
+			claims["identity"] = user.UserID
 			claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 
-			tok, err := jwtToken.SignedString([]byte("secret"))
+			tok, err := jwtToken.SignedString([]byte("secret")) // This should be in the env file
 			if err != nil{
 				return ctx.SendStatus(fiber.StatusInternalServerError)
 			}
