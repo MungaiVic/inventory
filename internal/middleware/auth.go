@@ -1,8 +1,12 @@
 package middleware
 
 import (
+	"errors"
+	"strings"
+
 	"github.com/gofiber/fiber/v2"
-	jwtware "github.com/gofiber/jwt/v2"
+	jwtware "github.com/gofiber/jwt/v3"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 func Protected() func(*fiber.Ctx) error {
@@ -20,8 +24,34 @@ func jwtError(ctx *fiber.Ctx, err error) error {
 		})
 	} else {
 		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
-			"status": "error", 
+			"status":  "error",
 			"message": "Invalid or expired JWT",
 		})
+	}
+}
+
+func AdminOnly() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		tokenString := c.GetReqHeaders()["Authorization"]
+		tokenString = strings.Split(tokenString, " ")[1]
+		token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+			claims := token.Claims.(jwt.MapClaims)
+			if !claims["admin"].(bool) {
+				return nil, errors.New("not an admin")
+			}
+
+			return []byte("secret"), nil
+		})
+		if err != nil {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"message": "User is Unauthorized",
+			})
+		}
+		if !token.Valid {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"message": "Invalid token",
+			})
+		}
+		return c.Next()
 	}
 }

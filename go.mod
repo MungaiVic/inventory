@@ -11,11 +11,12 @@ require (
 	gorm.io/gorm v1.24.7-0.20230306060331-85eaf9eeda11
 )
 
-require github.com/golang-jwt/jwt/v4 v4.0.0
+require github.com/golang-jwt/jwt/v4 v4.5.0
+
+require github.com/gofiber/jwt/v3 v3.3.6
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
-	github.com/gofiber/jwt/v2 v2.2.7
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/pgx/v5 v5.3.0 // indirect
@@ -23,7 +24,7 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/klauspost/compress v1.16.3 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
-	github.com/mattn/go-isatty v0.0.17 // indirect
+	github.com/mattn/go-isatty v0.0.18 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/philhofer/fwd v1.1.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect

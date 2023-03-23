@@ -22,7 +22,7 @@
     "method": "GET",
     "sortNum": 20000,
     "created": "2023-03-18T10:20:41.685Z",
-    "modified": "2023-03-23T14:44:06.954Z",
+    "modified": "2023-03-23T19:17:34.769Z",
     "headers": [],
     "params": [
       {
@@ -45,7 +45,7 @@
     ],
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk1ODU0ODMsImlkZW50aXR5IjoiNDY5ZmY3MDMtNjY5ZS00MDNkLTk0ZWMtOTQyOGUyMWMwZDRhIn0.gcfYhyb_IU73qD7iwKtH1k2XTlmIpRuKwXimnPnUnRA"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjc5NjAyNjQxLCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.lXW4SPdue160HNo946rhaZ7w9C8hSYG-9S2-wm50Ros"
     },
     "tests": []
   },

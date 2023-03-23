@@ -15,6 +15,7 @@ type User struct {
 	Email     *string   `json:"email,omitempty"`
 	Username  string    `json:"username,omitempty"`
 	Password  string    `json:"password,omitempty"`
+	IsAdmin   bool      `json:"is_admin,omitempty" gorm:"default:false"`
 }
 
 func MigrateUsers(db gorm.DB) error {

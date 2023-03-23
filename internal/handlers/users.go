@@ -14,7 +14,7 @@ func SetupUserRoutes(group *fiber.Group, svc service.UserService) {
 		return service.UserService.GetUsers(svc, ctx)
 	})
 
-	userRoutes.Get("/get_user", middleware.Protected(), func(ctx *fiber.Ctx) error {
+	userRoutes.Get("/get_user", middleware.AdminOnly(), middleware.Protected(), func(ctx *fiber.Ctx) error {
 		return service.UserService.GetUser(svc, ctx)
 	})
 

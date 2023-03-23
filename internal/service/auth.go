@@ -79,6 +79,7 @@ func (auth LoginImpl) Login(ctx *fiber.Ctx) error {
 			claims := jwtToken.Claims.(jwt.MapClaims)
 			claims["identity"] = user.UserID
 			claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
+			claims["admin"] = user.IsAdmin
 
 			tok, err := jwtToken.SignedString([]byte("secret")) // This should be in the env file
 			if err != nil{
