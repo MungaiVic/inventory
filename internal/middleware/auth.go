@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"errors"
+	"os"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
@@ -11,7 +12,7 @@ import (
 
 func Protected() func(*fiber.Ctx) error {
 	return jwtware.New(jwtware.Config{
-		SigningKey:   []byte("secret"),
+		SigningKey:   []byte(os.Getenv("JWT_SECRET")),
 		ErrorHandler: jwtError,
 	})
 }
@@ -40,7 +41,7 @@ func AdminOnly() fiber.Handler {
 				return nil, errors.New("not an admin")
 			}
 
-			return []byte("secret"), nil
+			return []byte(os.Getenv("JWT_SECRET")), nil
 		})
 		if err != nil {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{

@@ -2,6 +2,7 @@ package service
 
 import (
 	"inv-v2/internal/repository"
+	"os"
 	"strings"
 	"time"
 
@@ -81,7 +82,7 @@ func (auth LoginImpl) Login(ctx *fiber.Ctx) error {
 			claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 			claims["admin"] = user.IsAdmin
 
-			tok, err := jwtToken.SignedString([]byte("secret")) // This should be in the env file
+			tok, err := jwtToken.SignedString([]byte(os.Getenv("JWT_SECRET"))) // This should be in the env file
 			if err != nil{
 				return ctx.SendStatus(fiber.StatusInternalServerError)
 			}
