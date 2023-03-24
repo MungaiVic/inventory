@@ -19,10 +19,10 @@ func SetupItemRoutes(group *fiber.Group, svc service.ItemService) {
 	itemRoutes.Post("/create_item", middleware.Protected(), func(ctx *fiber.Ctx) error {
 		return service.ItemService.CreateItem(svc, ctx)
 	})
-	itemRoutes.Patch("/update_item", middleware.Protected(), func(ctx *fiber.Ctx) error {
+	itemRoutes.Patch("/update_item", middleware.AdminOnly(), func(ctx *fiber.Ctx) error {
 		return service.ItemService.UpdateItem(svc, ctx)
 	})
-	itemRoutes.Delete("/delete_item/:id", middleware.Protected(), func(ctx *fiber.Ctx) error {
+	itemRoutes.Delete("/delete_item/:id", middleware.AdminOnly(), func(ctx *fiber.Ctx) error {
 		return service.ItemService.DeleteItem(svc, ctx)
 	})
 }

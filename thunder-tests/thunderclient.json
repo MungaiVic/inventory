@@ -104,5 +104,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "bc55ae11-4d7c-4851-b588-6370119377ac",
+    "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
+    "containerId": "d5574662-54ae-402c-a296-f25c92b41942",
+    "name": "Get Item",
+    "url": "{{API}}:{{port}}/api/v1/items/1",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-03-24T09:20:03.688Z",
+    "modified": "2023-03-24T09:20:15.692Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
