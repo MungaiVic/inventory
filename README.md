@@ -14,8 +14,11 @@
   - `GET /api/v1/items/` - Get all inventory
   - `GET /api/v1/items/get_item/{id}` - Get inventory by id
   - `POST /api/v1/items/create_item/` - Create new inventory
-  - `PATCH /api/v1/items/update_item/{id}` - Update inventory by id
-  - `DELETE /api/v1/items/delete_item/{id}` - Delete inventory by id
+  - `PATCH /api/v1/items/update_item/` - Update inventory by id
+  - `DELETE /api/v1/items/delete_item/` - Delete inventory by id
+  - `GET /api/v1/users/` - Get all users
+  - `GET /api/v1/items/get_user/` - Get user by id
+  - `POST /api/v1/items/create_user/` - Create new user
 
 ## Running the project
 
@@ -27,7 +30,7 @@
 
 <!-- Highlight block -->
 
-> To migrate the database, run `go run main.go migrate`
+<!-- > To migrate the database, run `go run main.go migrate` -->
 
 ## Sample request
 
