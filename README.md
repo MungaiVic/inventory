@@ -13,9 +13,9 @@
 - The API is structured as follows:
   - `GET /api/v1/items/` - Get all inventory
   - `GET /api/v1/items/get_item/{id}` - Get inventory by id
-  - `POST /api/v1/items/create_item/` - Create new inventory
-  - `PATCH /api/v1/items/update_item/` - Update inventory by id
-  - `DELETE /api/v1/items/delete_item/` - Delete inventory by id
+  - `POST /api/v1/items/inventory/` - Create new inventory
+  - `PATCH /api/v1/items/inventory/` - Update inventory by id
+  - `DELETE /api/v1/items/inventory/` - Delete inventory by id
   - `GET /api/v1/users/` - Get all users
   - `GET /api/v1/items/get_user/` - Get user by id
   - `POST /api/v1/items/create_user/` - Create new user
