@@ -2,6 +2,8 @@ package service
 
 import (
 	"inv-v2/internal/models"
+
+	"github.com/google/uuid"
 )
 
 func ConvertUserRegToUserModel(userReg UserRegistration) *models.User {
@@ -20,6 +22,7 @@ func ConvertUserRegToUserResponse(userReg models.User) UserResponse {
 	userObj.LastName = userReg.LastName
 	userObj.Email = userReg.Email
 	userObj.Username = userReg.Username
+	userObj.UserID = userReg.UserID.String()
 
 	return userObj
 }
@@ -33,6 +36,7 @@ func ConvertUserModelsToUserResponses(userModels []*models.User) []UserResponse 
 			LastName:  user.LastName,
 			Email:     user.Email,
 			Username:  user.Username,
+			UserID:    user.UserID.String(),
 		}
 		userResps = append(userResps, userResponse)
 	}
@@ -46,6 +50,7 @@ func ConvertUserModelToUserResponse(userModels *models.User) UserResponse {
 		LastName:  userModels.LastName,
 		Email:     userModels.Email,
 		Username:  userModels.Username,
+		UserID:    userModels.UserID.String(),
 	}
 
 	return userResponse
@@ -64,4 +69,15 @@ func ConvertItemModelToItemResponse(itemModels []models.Item) []ItemResponse {
 		itemResps = append(itemResps, itemResponse)
 	}
 	return itemResps
+}
+
+func ConvertUserUpdateToUserModel(update UserUpdate) models.User{
+	userModel := models.User{
+		FirstName: update.FirstName,
+		LastName: update.LastName,
+		Username: update.Username,
+		Email: update.Email,
+		UserID: uuid.Must(uuid.Parse(update.UserID)),
+	}
+	return userModel
 }

@@ -1,6 +1,8 @@
 package repository
 
-import "inv-v2/internal/models"
+import (
+	"inv-v2/internal/models"
+)
 
 type ItemRepository interface {
 	GetAllItems() ([]models.Item, error)
@@ -16,4 +18,5 @@ type UserRepository interface {
 	GetUserByEmail(email string) (*models.User, error)
 	GetUserByUsername(userName string) (*models.User, error)
 	CreateUser(user *models.User) (*models.User, error)
+	UpdateUser(userupdate *models.User) (*models.User, error)
 }

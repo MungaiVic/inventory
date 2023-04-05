@@ -4,6 +4,7 @@ import (
 	"inv-v2/internal/repository"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 type UserImpl struct {
@@ -96,6 +97,37 @@ func (user UserImpl) Register(c *fiber.Ctx) error {
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "user successfully created",
+		"data":    userResp,
+	})
+}
+
+func (user UserImpl) UpdateUser(ctx *fiber.Ctx) error {
+	userupdate := &UserUpdate{}
+	ctx.BodyParser(userupdate)
+	if updateErrors := ValidateUpdateUser(userupdate); len(updateErrors) > 0 {
+		return ctx.Status(fiber.StatusBadRequest).JSON(updateErrors)
+	}
+	toBeUpdatedUser, err := user.db.GetUserByID(userupdate.UserID)
+	if err != nil {
+		return ctx.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"message": "User not found",
+		})
+	}
+	toBeUpdatedUser.Username = userupdate.Username
+	toBeUpdatedUser.Email = userupdate.Email
+	toBeUpdatedUser.FirstName = userupdate.FirstName
+	toBeUpdatedUser.LastName = userupdate.LastName
+	toBeUpdatedUser.UserID = uuid.Must(uuid.Parse(userupdate.UserID))
+	
+	updatedUser, err := user.db.UpdateUser(toBeUpdatedUser)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": err,
+		})
+	}
+	userResp := ConvertUserModelToUserResponse(updatedUser)
+	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "user successfully updated",
 		"data":    userResp,
 	})
 }

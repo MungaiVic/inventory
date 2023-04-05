@@ -23,7 +23,7 @@ func (user PgUserRepository) GetAllUsers() ([]*models.User, error) {
 }
 
 // Get user by ID
-func (user PgUserRepository) GetUserByID(userID string) (*models.User, error){
+func (user PgUserRepository) GetUserByID(userID string) (*models.User, error) {
 	var userObj models.User
 	user.db.First(&userObj, "user_id = ?", userID)
 	if userObj.FirstName == "" {
@@ -33,7 +33,7 @@ func (user PgUserRepository) GetUserByID(userID string) (*models.User, error){
 }
 
 // Get user by email
-func (user PgUserRepository) GetUserByEmail(email string) (*models.User, error){
+func (user PgUserRepository) GetUserByEmail(email string) (*models.User, error) {
 	var userObj models.User
 	user.db.First(&userObj, "Email = ?", email)
 	if userObj.FirstName == "" {
@@ -43,7 +43,7 @@ func (user PgUserRepository) GetUserByEmail(email string) (*models.User, error){
 }
 
 // Get user by username
-func (user PgUserRepository) GetUserByUsername(userName string) (*models.User, error){
+func (user PgUserRepository) GetUserByUsername(userName string) (*models.User, error) {
 	var userObj models.User
 	user.db.First(&userObj, "Username = ?", userName)
 	if userObj.FirstName == "" {
@@ -58,4 +58,13 @@ func (user PgUserRepository) CreateUser(regUser *models.User) (*models.User, err
 		return nil, err
 	}
 	return regUser, nil
+}
+
+func (user PgUserRepository) UpdateUser(userupdate *models.User) (*models.User, error) {
+	user.db.Model(&userupdate).Updates(models.User{
+		Username:  userupdate.Username,
+		FirstName: userupdate.FirstName,
+		LastName:  userupdate.LastName,
+		Email:     userupdate.Email})
+	return userupdate, nil
 }

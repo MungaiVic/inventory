@@ -21,4 +21,8 @@ func SetupUserRoutes(group *fiber.Group, svc service.UserService) {
 	userRoutes.Post("/create_user", middleware.Protected(), func(ctx *fiber.Ctx) error {
 		return service.UserService.Register(svc, ctx)
 	})
+
+	userRoutes.Put("/update_user", middleware.Protected(), func(ctx *fiber.Ctx) error {
+		return service.UserService.UpdateUser(svc, ctx)
+	})
 }

@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"inv-v2/internal/models"
 	"inv-v2/internal/repository"
 
@@ -18,7 +17,7 @@ func NewItemService(db repository.ItemRepository) ItemService {
 
 func (item *ItemImpl) GetItems(c *fiber.Ctx) error {
 	items, _ := item.db.GetAllItems()
-	return c.Status(fiber.StatusOK).JSON( ConvertItemModelToItemResponse(items))
+	return c.Status(fiber.StatusOK).JSON(ConvertItemModelToItemResponse(items))
 }
 
 func (item *ItemImpl) GetItem(c *fiber.Ctx) error {
@@ -37,7 +36,6 @@ func (item *ItemImpl) CreateItem(c *fiber.Ctx) error {
 	itemModel := &models.Item{}
 	err := c.BodyParser(itemModel)
 	if err != nil {
-		fmt.Println(err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "invalid request",
 			"data":    err,
@@ -57,7 +55,6 @@ func (item *ItemImpl) UpdateItem(c *fiber.Ctx) error {
 	itemModel := &models.Item{}
 	err := c.BodyParser(&itemModel)
 	if err != nil {
-		fmt.Println(err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"message": "invalid request",
 			"data":    err,

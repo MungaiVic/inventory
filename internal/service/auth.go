@@ -83,11 +83,11 @@ func (auth LoginImpl) Login(ctx *fiber.Ctx) error {
 			claims["admin"] = user.IsAdmin
 
 			tok, err := jwtToken.SignedString([]byte(os.Getenv("JWT_SECRET"))) // This should be in the env file
-			if err != nil{
+			if err != nil {
 				return ctx.SendStatus(fiber.StatusInternalServerError)
 			}
 			return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-				"Message": "Authentication credentials look OK.",
+				"Message":  "Authentication credentials look OK.",
 				"jwtToken": tok,
 			})
 		} else {

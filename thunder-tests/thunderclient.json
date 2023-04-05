@@ -18,11 +18,11 @@
     "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
     "containerId": "9768302a-1a48-46b0-894e-7ef9c598599f",
     "name": "Get user",
-    "url": "{{API}}:{{port}}/api/v1/users/get_user?user_id=469ff703-669e-403d-94ec-9428e21c0d4a",
+    "url": "{{API}}:{{port}}/api/v1/users/get_user?user_id=44e5b87a-b760-4c23-82d7-c025735c8dde",
     "method": "GET",
     "sortNum": 20000,
     "created": "2023-03-18T10:20:41.685Z",
-    "modified": "2023-03-23T19:17:34.769Z",
+    "modified": "2023-04-05T08:04:28.128Z",
     "headers": [],
     "params": [
       {
@@ -39,13 +39,13 @@
       },
       {
         "name": "user_id",
-        "value": "469ff703-669e-403d-94ec-9428e21c0d4a",
+        "value": "44e5b87a-b760-4c23-82d7-c025735c8dde",
         "isPath": false
       }
     ],
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjc5NjAyNjQxLCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.lXW4SPdue160HNo946rhaZ7w9C8hSYG-9S2-wm50Ros"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjgwNjg1MTAzLCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.wExZ7aTyGEg1wkkq0v6oKxtt_-LjfYwWgSXZ4JJp9VU"
     },
     "tests": []
   },
@@ -58,12 +58,17 @@
     "method": "GET",
     "sortNum": 30000,
     "created": "2023-03-18T10:21:17.953Z",
-    "modified": "2023-03-23T14:32:23.893Z",
+    "modified": "2023-04-05T08:02:32.410Z",
     "headers": [],
     "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"first_name\": \"Kamishna\",\n    \"last_name\": \"Nogozi\",\n    \"email\": \"kamanda@test.com\",\n    \"username\": \"kamishna\"\n  }",
+      "form": []
+    },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2Nzk1ODU0ODMsImlkZW50aXR5IjoiNDY5ZmY3MDMtNjY5ZS00MDNkLTk0ZWMtOTQyOGUyMWMwZDRhIn0.gcfYhyb_IU73qD7iwKtH1k2XTlmIpRuKwXimnPnUnRA"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjgwNjg1MTAzLCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.wExZ7aTyGEg1wkkq0v6oKxtt_-LjfYwWgSXZ4JJp9VU"
     },
     "tests": []
   },
@@ -117,6 +122,29 @@
     "modified": "2023-03-24T09:20:15.692Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "95b90073-4729-4d10-8da4-2b4c15307075",
+    "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
+    "containerId": "9768302a-1a48-46b0-894e-7ef9c598599f",
+    "name": "Update User",
+    "url": "{{API}}:{{port}}/api/v1/users/update_user",
+    "method": "PUT",
+    "sortNum": 50000,
+    "created": "2023-04-05T07:58:17.197Z",
+    "modified": "2023-04-05T08:05:58.341Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"user_id\": \"44e5b87a-b760-4c23-82d7-c025735c8dde\",\n    \"first_name\": \"Kamishna\",\n    \"last_name\": \"Nogozi\",\n    \"email\": \"kamishna@test.com\",\n    \"username\": \"kamishna\"\n  }",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjgwNjg1MTAzLCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.wExZ7aTyGEg1wkkq0v6oKxtt_-LjfYwWgSXZ4JJp9VU"
+    },
     "tests": []
   }
 ]

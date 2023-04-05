@@ -52,3 +52,29 @@ func ValidateRegisterUser(user *UserRegistration) map[string]string {
 	}
 	return userErrors
 }
+
+func ValidateUpdateUser(user *UserUpdate) map[string]string {
+	userErrors := make(map[string]string)
+
+	if user.UserID == "" {
+		userErrors["user_id"] = "user_id must not be empty"
+	}
+	if user.Username == "" {
+		userErrors["username"] = "username must not be empty"
+	} else if len(user.Username) < 3 {
+		userErrors["username"] = "username must not be less than 3 characters"
+	}
+	if len(user.FirstName) < 3 {
+		userErrors["first_name"] = "first_name must not be less than 3 characters"
+	}
+	if len(user.LastName) < 3 {
+		userErrors["last_name"] = "last_name must not be less than 3 characters"
+	}
+	if user.FirstName == "" {
+		userErrors["first_name"] = "first_name must not be empty"
+	}
+	if user.LastName == "" {
+		userErrors["last_name"] = "last_name must not be empty"
+	}
+	return userErrors
+}
