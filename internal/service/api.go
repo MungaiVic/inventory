@@ -34,7 +34,7 @@ type UserRegistration struct {
 }
 
 type UserResponse struct {
-	UserID    string `json:"user_id,omitempty"`
+	UserID    string  `json:"user_id,omitempty"`
 	FirstName string  `json:"first_name,omitempty"`
 	LastName  string  `json:"last_name,omitempty"`
 	Email     *string `json:"email,omitempty"`
@@ -54,9 +54,9 @@ type LoginCredentials struct {
 }
 
 type UserUpdate struct {
-	UserID    string `json:"user_id,omitempty"`
-	Username  string `json:"username, omitempty"`
-	FirstName string `json:"first_name,omitempty"`
-	LastName  string `json:"last_name,omitempty"`
+	UserID    string  `json:"user_id,omitempty"`
+	Username  string  `json:"username,omitempty"`
+	FirstName string  `json:"first_name,omitempty"`
+	LastName  string  `json:"last_name,omitempty"`
 	Email     *string `json:"email,omitempty"`
 }
