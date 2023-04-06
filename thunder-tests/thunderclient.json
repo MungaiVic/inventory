@@ -146,5 +146,28 @@
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjgwNjg1MTAzLCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.wExZ7aTyGEg1wkkq0v6oKxtt_-LjfYwWgSXZ4JJp9VU"
     },
     "tests": []
+  },
+  {
+    "_id": "5ef51391-b488-40dc-99b4-2e843584f28a",
+    "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
+    "containerId": "9768302a-1a48-46b0-894e-7ef9c598599f",
+    "name": "Change user password",
+    "url": "{{API}}:{{port}}/api/v1/users/changepass",
+    "method": "PUT",
+    "sortNum": 60000,
+    "created": "2023-04-06T14:46:37.225Z",
+    "modified": "2023-04-06T14:48:03.221Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"user_id\": \"44e5b87a-b760-4c23-82d7-c025735c8dde\",\n    \"old_pass\": \"looter123!\",\n    \"new_pass\": \"looter123\"\n  }",
+      "form": []
+    },
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjgwNjg1MTAzLCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.wExZ7aTyGEg1wkkq0v6oKxtt_-LjfYwWgSXZ4JJp9VU"
+    },
+    "tests": []
   }
 ]

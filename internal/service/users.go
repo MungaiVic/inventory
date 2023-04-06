@@ -118,7 +118,7 @@ func (user UserImpl) UpdateUser(ctx *fiber.Ctx) error {
 	toBeUpdatedUser.FirstName = userupdate.FirstName
 	toBeUpdatedUser.LastName = userupdate.LastName
 	toBeUpdatedUser.UserID = uuid.Must(uuid.Parse(userupdate.UserID))
-	
+
 	updatedUser, err := user.db.UpdateUser(toBeUpdatedUser)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
@@ -129,5 +129,30 @@ func (user UserImpl) UpdateUser(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
 		"message": "user successfully updated",
 		"data":    userResp,
+	})
+}
+func (user UserImpl) ChangePassword(ctx *fiber.Ctx) error {
+	passChange := &PasswordChange{}
+	ctx.BodyParser(passChange)
+	currentPasswordHash, err := user.db.GetUserByID(passChange.UserID)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "User does not exist",
+		})
+	}
+	validOldPass := ValidatePassword(currentPasswordHash.Password, passChange.OldPass)
+	if validOldPass {
+		newPassHash, err := HashPassword(passChange.NewPass)
+		if err != nil{
+			return ctx.Status(fiber.StatusInternalServerError).JSON(err)
+		}
+		currentPasswordHash.Password = newPassHash
+		user.db.ChangePassword(currentPasswordHash)
+		return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+			"message": "Password Changed successfully",
+		})
+	}
+	return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+		"message": "wrong password entered",
 	})
 }

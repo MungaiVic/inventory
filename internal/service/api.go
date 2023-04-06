@@ -16,7 +16,7 @@ type UserService interface {
 	GetUsers(c *fiber.Ctx) error
 	GetUser(c *fiber.Ctx) error
 	Register(c *fiber.Ctx) error
-	// ChangePassword(c *fiber.Ctx) error
+	ChangePassword(c *fiber.Ctx) error
 	UpdateUser(c *fiber.Ctx) error
 	// DeleteUser(c *fiber.Ctx) error
 }
@@ -59,4 +59,10 @@ type UserUpdate struct {
 	FirstName string  `json:"first_name,omitempty"`
 	LastName  string  `json:"last_name,omitempty"`
 	Email     *string `json:"email,omitempty"`
+}
+
+type PasswordChange struct {
+	OldPass string `json:"old_pass,omitempty"`
+	NewPass string `json:"new_pass,omitempty"`
+	UserID  string `json:"user_id,omitempty"`
 }

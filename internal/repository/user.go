@@ -68,3 +68,11 @@ func (user PgUserRepository) UpdateUser(userupdate *models.User) (*models.User, 
 		Email:     userupdate.Email})
 	return userupdate, nil
 }
+
+
+func (user PgUserRepository) ChangePassword(passchange *models.User) (*models.User, error) {
+	user.db.Model(&passchange).Updates(models.User{
+		Password:  passchange.Password,
+})
+	return passchange, nil
+}

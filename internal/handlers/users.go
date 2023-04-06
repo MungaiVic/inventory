@@ -25,4 +25,8 @@ func SetupUserRoutes(group *fiber.Group, svc service.UserService) {
 	userRoutes.Put("/update_user", middleware.Protected(), func(ctx *fiber.Ctx) error {
 		return service.UserService.UpdateUser(svc, ctx)
 	})
+
+	userRoutes.Put("/changepass", func(ctx *fiber.Ctx) error {
+		return service.UserService.ChangePassword(svc, ctx)
+	})
 }

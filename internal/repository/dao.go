@@ -19,4 +19,5 @@ type UserRepository interface {
 	GetUserByUsername(userName string) (*models.User, error)
 	CreateUser(user *models.User) (*models.User, error)
 	UpdateUser(userupdate *models.User) (*models.User, error)
+	ChangePassword(passchange *models.User) (*models.User, error)
 }
