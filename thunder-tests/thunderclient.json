@@ -58,7 +58,7 @@
     "method": "GET",
     "sortNum": 30000,
     "created": "2023-03-18T10:21:17.953Z",
-    "modified": "2023-04-05T08:02:32.410Z",
+    "modified": "2023-04-06T19:22:18.215Z",
     "headers": [],
     "params": [],
     "body": {
@@ -68,7 +68,7 @@
     },
     "auth": {
       "type": "bearer",
-      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjgwNjg1MTAzLCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.wExZ7aTyGEg1wkkq0v6oKxtt_-LjfYwWgSXZ4JJp9VU"
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjgwODEyNDc2LCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.dda2le3a_ht28CTaiD1hWFJvw4KXcDL2BhUvjMt-mpc"
     },
     "tests": []
   },
@@ -100,12 +100,12 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2023-03-20T13:26:49.374Z",
-    "modified": "2023-03-20T13:30:49.403Z",
+    "modified": "2023-04-06T19:27:02.314Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"identifier\" : \"ndoige\",\n  \"password\": \"looter123\"\n}",
+      "raw": "{\n  \"identifier\" : \"jane\",\n  \"password\": \"looter123\"\n}",
       "form": []
     },
     "tests": []
@@ -167,6 +167,30 @@
     "auth": {
       "type": "bearer",
       "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjgwNjg1MTAzLCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.wExZ7aTyGEg1wkkq0v6oKxtt_-LjfYwWgSXZ4JJp9VU"
+    },
+    "tests": []
+  },
+  {
+    "_id": "08c45629-f682-40cc-9bfd-f1240bff11e5",
+    "colId": "8e678f13-0879-4ce7-92a1-c6cef8a0c15e",
+    "containerId": "9768302a-1a48-46b0-894e-7ef9c598599f",
+    "name": "Delete user",
+    "url": "{{API}}:{{port}}/api/v1/users/delete?user_id=e3f20f11-3313-41b1-816d-4ff96b0ddf01",
+    "method": "DELETE",
+    "sortNum": 25000,
+    "created": "2023-04-06T19:21:31.315Z",
+    "modified": "2023-04-06T19:27:18.452Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "user_id",
+        "value": "e3f20f11-3313-41b1-816d-4ff96b0ddf01",
+        "isPath": false
+      }
+    ],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6dHJ1ZSwiZXhwIjoxNjgwODEyNDc2LCJpZGVudGl0eSI6IjQ2OWZmNzAzLTY2OWUtNDAzZC05NGVjLTk0MjhlMjFjMGQ0YSJ9.dda2le3a_ht28CTaiD1hWFJvw4KXcDL2BhUvjMt-mpc"
     },
     "tests": []
   }

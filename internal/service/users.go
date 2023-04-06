@@ -55,7 +55,6 @@ func (user UserImpl) GetUser(c *fiber.Ctx) error {
 			"message": "Please supply email, username or user_id",
 		})
 	}
-
 }
 
 func (user UserImpl) Register(c *fiber.Ctx) error {
@@ -131,6 +130,7 @@ func (user UserImpl) UpdateUser(ctx *fiber.Ctx) error {
 		"data":    userResp,
 	})
 }
+
 func (user UserImpl) ChangePassword(ctx *fiber.Ctx) error {
 	passChange := &PasswordChange{}
 	ctx.BodyParser(passChange)
@@ -143,7 +143,7 @@ func (user UserImpl) ChangePassword(ctx *fiber.Ctx) error {
 	validOldPass := ValidatePassword(currentPasswordHash.Password, passChange.OldPass)
 	if validOldPass {
 		newPassHash, err := HashPassword(passChange.NewPass)
-		if err != nil{
+		if err != nil {
 			return ctx.Status(fiber.StatusInternalServerError).JSON(err)
 		}
 		currentPasswordHash.Password = newPassHash
@@ -154,5 +154,21 @@ func (user UserImpl) ChangePassword(ctx *fiber.Ctx) error {
 	}
 	return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 		"message": "wrong password entered",
+	})
+}
+
+func (user UserImpl) DeleteUser(ctx *fiber.Ctx) error {
+	userID := ctx.Query("user_id")
+	if userID != "" {
+		err := user.db.DeleteUser(userID)
+		if err != nil {
+			return ctx.Status(fiber.StatusInternalServerError).JSON(err)
+		}
+		return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
+			"message": "user deleted successfully.",
+		})
+	}
+	return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+		"message": "user_id cannot be empty",
 	})
 }

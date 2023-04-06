@@ -29,4 +29,8 @@ func SetupUserRoutes(group *fiber.Group, svc service.UserService) {
 	userRoutes.Put("/changepass", func(ctx *fiber.Ctx) error {
 		return service.UserService.ChangePassword(svc, ctx)
 	})
+
+	userRoutes.Delete("/delete", middleware.AdminOnly(), func(ctx *fiber.Ctx) error {
+		return service.UserService.DeleteUser(svc, ctx)
+	})
 }

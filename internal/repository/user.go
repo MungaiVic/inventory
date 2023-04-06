@@ -76,3 +76,8 @@ func (user PgUserRepository) ChangePassword(passchange *models.User) (*models.Us
 })
 	return passchange, nil
 }
+
+func (user PgUserRepository) DeleteUser (userId string) error {
+	err := user.db.Where("user_id = ?", userId).Delete(&models.User{})
+	return err.Error
+}
