@@ -1,6 +1,11 @@
 # inventory
 
-- A simple CRUD API for inventory
+- A simple CRUD API for inventory.
+- The API has been split into various layers for separation of concerns as follows:
+  - Handler Layer - Deals with routing
+  - Repository layer - Deals with database operations
+  - Service layer - Deals with business logic
+- All these layers interact with each other through interfaces; Something close to **clean architecture** principles.
 
 ## Libraries used
 
@@ -10,15 +15,19 @@
 
 ## Usage
 
-- The API is structured as follows:
+- For items/inventory is structured as follows:
   - `GET /api/v1/items/` - Get all inventory
   - `GET /api/v1/items/get_item/{id}` - Get inventory by id
   - `POST /api/v1/items/inventory/` - Create new inventory
-  - `PATCH /api/v1/items/inventory/` - Update inventory by id
-  - `DELETE /api/v1/items/inventory/` - Delete inventory by id
+  - `PATCH /api/v1/items/inventory/` - Update inventory by id (Admin Protected)
+  - `DELETE /api/v1/items/inventory/` - Delete inventory by id (Admin Protected)
+- For users, below are the endpoints:
   - `GET /api/v1/users/` - Get all users
-  - `GET /api/v1/items/get_user/` - Get user by id
-  - `POST /api/v1/items/create_user/` - Create new user
+  - `GET /api/v1/users/get_user/` - Get user by id (Admin Protected)
+  - `POST /api/v1/users/create_user/` - Create new user (Admin Protected)
+  - `PUT /api/v1/users/update/` - Update user
+  - `PUT /api/v1/users/changepass/` - Change user password
+  - `DELETE /api/v1/users/delete/{id}` - Delete user (Admin Protected)
 
 ## Running the project
 
