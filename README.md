@@ -67,3 +67,7 @@
 ```
 
 - `DELETE /api/v1/items/delete_item/{id}`
+
+## Important
+
+- Constructive criticism will be appreciated. Reach out to me on [Twitter](https://twitter.com/mungai_vic) or [LinkedIn](https://www.linkedin.com/in/victor-mungai-02966183/) for improvements on the project.
