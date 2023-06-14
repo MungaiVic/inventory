@@ -3,7 +3,7 @@ module inv-v2
 go 1.20
 
 require (
-	github.com/gofiber/fiber/v2 v2.42.0
+	github.com/gofiber/fiber/v2 v2.43.0
 	github.com/google/uuid v1.3.0
 	github.com/joho/godotenv v1.5.1
 	golang.org/x/crypto v0.7.0
